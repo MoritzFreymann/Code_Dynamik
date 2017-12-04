@@ -129,8 +129,3 @@ ylabel( '$\dot{q}$ in [rad/s]','Interpreter','latex');
 % h.Interpreter='latex';
 % xlabel( 't in [s]','Interpreter','latex');
 % ylabel( '$e_q$ in [rad]','Interpreter','latex');
-
-
-
-
-
