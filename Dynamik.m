@@ -1,6 +1,10 @@
 %Aufraeumen
 close all;
 clear all;
+clc
+
+% Fuege Pfad hinzu
+addpath('C:\Users\Moritz\My\Studium\Roboterdynamik_Praktikum\2_Inverse_Kinematik\Code_Inverse_Kinematik');
 
 %% 1. Parameter und Strukturen initialisieren
 
@@ -12,7 +16,6 @@ rob = erstelle_roboter();
 
 %Datenmatrix fuer Viewer - Sollbahn
 V = zeros(3,4,6,length(T));
-
 
 %% Inverse Dynamik
 
