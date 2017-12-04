@@ -15,15 +15,17 @@ rob.tau_id=zeros(rob.N_Q,1);
 rob=berechne_dk_positionen(rob);
 rob=berechne_dk_geschwindigkeiten(rob);
 rob=berechne_dk_beschleunigungen(rob);
-rob=berechne_dk_jacobis(rob);
+rob=berechne_dk_jacobis(rob,'xxx');
 
 %3. Berechnung fuer alle Koerper: Impuls- und Drallaenderung
 for i=1:length(rob.kl)
     
     %Absolutbeschleunigung des Schwerpunkts:
-%    rob.kl(i).Bi_ddot_r_s = ?;
-    % i_a_i = i_J_To_i * ddot_q + i_J_Tqo_i * dot_q + i_omega_i x i_v_i
-    % ...(3.3.27) Skript Seite 37
+    rob.kl(i).Bi_ddot_r_s = rob.kl(i).Bi_ddot_r_i +...
+        ( tilde(rob.kl(i).Bi_dot_omega) + tilde(rob.kl(i).Bi_omega) * tilde(rob.kl(i).Bi_omega)) *...
+        rob.kl(i).Bi_r_s;
+    % i_a_si = i_a_i + ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
+    % ...(2.3.19) Skript Seite 16
     
     %Impulsaenderung - Schwerkraft
 %    F = ?;
