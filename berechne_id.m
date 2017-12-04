@@ -22,6 +22,8 @@ for i=1:length(rob.kl)
     
     %Absolutbeschleunigung des Schwerpunkts:
 %    rob.kl(i).Bi_ddot_r_s = ?;
+    % i_a_i = i_J_To_i * ddot_q + i_J_Tqo_i * dot_q + i_omega_i x i_v_i
+    % ...(3.3.27) Skript Seite 37
     
     %Impulsaenderung - Schwerkraft
 %    F = ?;

@@ -4,7 +4,7 @@ clear all;
 clc
 
 % Fuege Pfad hinzu
-addpath('C:\Users\Moritz\My\Studium\Roboterdynamik_Praktikum\2_Inverse_Kinematik\Code_Inverse_Kinematik');
+addpath('C:\Users\Moritz\My\Studium\Roboterdynamik_Praktikum\1_Direkte_Kinematik\Code_Direkte_Kinematik\Direkte_Kinematik');
 
 %% 1. Parameter und Strukturen initialisieren
 
