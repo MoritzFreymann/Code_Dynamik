@@ -9,7 +9,7 @@ function rob = berechne_dk_geschwindigkeiten(rob)
     i = 1;
     % Relative Winkelgeschwindigkeit berechnen
         % ----------------------------------------
-        rob.kl(i).Bi_omega_rel = Ax( -rob.kl(i).alpha) * [ 0; 0; rob.dot_q(i) ];    % = v_omega_v,i
+        rob.kl(i).Bi_omega_rel = [ 0; 0; rob.dot_q(i) ];    % = v_omega_v,i
 
         % Absolute Winkelgeschwindigkeit berechnen
         % ----------------------------------------
