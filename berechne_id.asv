@@ -22,7 +22,7 @@ for i=1:length(rob.kl)
     
     % Absolutbeschleunigung des Schwerpunkts:
     rob.kl(i).Bi_ddot_r_s = rob.kl(i).Bi_ddot_r_i +...
-        ( tilde(rob.kl(i).Bi_dot_omega) + tilde(rob.kl(i).Bi_omega) * tilde(rob.kl(i).Bi_omega) ) *...
+        ( tilde(rob.kl(i).Bi_dot_omega) + tilde(rob.kl(i).Bi_omega) * tilde(rob.kl(i).Bi_omega)) *...
         rob.kl(i).Bi_r_s;
     % i_a_si = i_a_i + ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
     % ...(2.3.19) Skript Seite 16
@@ -33,15 +33,13 @@ for i=1:length(rob.kl)
     % Drallaenderung - Moment der Schwerkraft
     T = rob.kl(i).I_o * rob.kl(i).Bi_dot_omega +...
         tilde(rob.kl(i).Bi_omega) * rob.kl(i).I_o * rob.kl(i).Bi_omega +...
-        rob.kl(i).m * tilde( rob.kl(i).Bi_r_s ) * rob.kl(i).Bi_ddot_r_s -...
-        rob.kl(i).m * tilde( rob.kl(i).Bi_r_s ) * rob.B0_g;
+        ;
     % I0_i * dot_omega_i +  tilde_omega_i * I0_i * omega_i +...
     % m_i * tilde_r_i,si * a_i - M0_g
     %...nach (3.3.20) Skript Seite 36
     
     % Projektion auf zwangsfreie Richtungen und Addition zu tau_id
-    rob.tau_id = rob.tau_id + [rob.kl(i).Bi_Jt_o; rob.kl(i).Bi_Jr]' * [F; T];
-    
+    %rob.tau_id= ?;
 end
 end
 
