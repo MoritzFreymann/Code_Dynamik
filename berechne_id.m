@@ -21,9 +21,9 @@ rob=berechne_dk_jacobis(rob,'xxx');
 for i=1:length(rob.kl)
     
     % Absolutbeschleunigung des Schwerpunkts:
-    rob.kl(i).Bi_ddot_r_s = rob.kl(i).Bi_ddot_r_i +...
-        ( tilde(rob.kl(i).Bi_dot_omega) + tilde(rob.kl(i).Bi_omega) * tilde(rob.kl(i).Bi_omega) ) *...
-        rob.kl(i).Bi_r_s;
+    rob.kl(i).Bi_ddot_r_s = rob.kl(i).Bi_ddot_r_i + 0; %...
+        %( tilde(rob.kl(i).Bi_dot_omega) + tilde(rob.kl(i).Bi_omega) * tilde(rob.kl(i).Bi_omega) ) *...
+        %rob.kl(i).Bi_r_s;
     % ---------------------------------------------------------------------
     % allg.: i_a_si = i_a_i +...
     % ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si +...
@@ -33,6 +33,9 @@ for i=1:length(rob.kl)
     %  =>   i_a_si = i_a_i +...
     % ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
     % ---------------------------------------------------------------------
+    
+    a = rob.kl(i).Bi_ddot_r_s;
+    a
     
     % Impulsaenderung - Schwerkraft
     F = rob.kl(i).m * rob.kl(i).Bi_ddot_r_s - rob.kl(i).m * rob.B0_g;
@@ -48,7 +51,7 @@ for i=1:length(rob.kl)
     %...nach (3.3.21) Skript Seite 36
     
     % Projektion auf zwangsfreie Richtungen und Addition zu tau_id
-    rob.tau_id = [rob.kl(i).Bi_Jt_o; rob.kl(i).Bi_Jr]' * [F; T];
+    rob.tau_id = rob.tau_id + [rob.kl(i).Bi_Jt_o; rob.kl(i).Bi_Jr]' * [F; T];
     
 end
 end

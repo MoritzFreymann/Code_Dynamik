@@ -41,9 +41,10 @@ for i=1:n_Elemente
     
     %% absolute Translationsbeschleunigung berechnen
     if vor ~= -1 % hat Vorgaenger
-        rob.kl(i).Bi_ddot_r_i=rob.kl(i).A_iv*(rob.kl(vor).Bi_ddot_r_i+...
+        rob.kl(i).Bi_ddot_r_i=rob.kl(i).A_iv*( rob.kl(vor).Bi_ddot_r_i+...
             tilde(rob.kl(vor).Bi_dot_omega)*rob.kl(i).Bv_r_vi+...
-            tilde(rob.kl(vor).Bi_omega)*tilde(rob.kl(vor).Bi_omega)*rob.kl(i).Bv_r_vi);
+            tilde(rob.kl(vor).Bi_omega)*tilde(rob.kl(vor).Bi_omega)*rob.kl(i).Bv_r_vi );
+            % ...nach (2.3.19) Skript Seite 16
     else
         rob.kl(i).Bi_ddot_r_i=zeros(3,1);
     end
