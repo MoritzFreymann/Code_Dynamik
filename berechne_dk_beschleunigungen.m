@@ -29,8 +29,9 @@ for i=1:n_Elemente
         %A_BI*d(A_IB)/dt=-d(A_BI)*A_IB=tilde(B_omega)
         % ==> d(A_BI)/dt = -tilde(B_omega)*A_BI = tilde(B_omega)^T*A_BI
         % Wobei hier gilt: A_BI ~ A_iv
-        rob.kl(i).Bi_dot_omega=rob.kl(i).A_iv*rob.kl(vor).Bi_dot_omega...
+        rob.kl(i).Bi_dot_omega = rob.kl(i).A_iv * rob.kl(vor).Bi_dot_omega...
             +tilde(rob.kl(i).Bi_omega_rel)'*rob.kl(i).A_iv*rob.kl(vor).Bi_omega;
+        dot_omega = rob.kl(i).Bi_dot_omega
     else
         rob.kl(i).Bi_dot_omega=zeros(3,1);
     end
