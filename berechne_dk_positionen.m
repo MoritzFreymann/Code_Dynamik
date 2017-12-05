@@ -1,4 +1,4 @@
-function rob = berechne_dk_positionen_vektorkette(rob)
+function rob = berechne_dk_positionen(rob)
     % Berechnung der Positions-Groessen der direkten Kinematik (Lage und Orientierung)
     % ueber die Bildung einer Vektorkette
 
@@ -35,16 +35,19 @@ function rob = berechne_dk_positionen_vektorkette(rob)
                               cos(rob.kl(i).alpha)*rob.kl(i).d];
 
         % Drehmatrix vom Vorgaenger zum i-ten Koerper 
-        rob.kl(i).A_iv = Az( rob.q(i) ) * Ax( rob.kl(i).alpha );    % i_A_v       
+        rob.kl(i).A_iv = Az( rob.q(i) ) * Ax( rob.kl(i).alpha );    
+        % i_A_v       
    
         % Absolute Position und Orientierung
         % ----------------------------------
         
         % Drehmatrix vom B0-KOS ins Bi-KOS: 
-        rob.kl(i).A_i0 = rob.kl(i).A_iv * rob.kl(vor).A_i0; % i_A_0 = i_A_v * v_A_0
+        rob.kl(i).A_i0 = rob.kl(i).A_iv * rob.kl(vor).A_i0; 
+        % i_A_0 = i_A_v * v_A_0
 
         % Position des Ursprungs des i-ten Koerpers im Bi-KOS:
-        rob.kl(i).Bi_r_i = rob.kl(i).A_iv * ( rob.kl(vor).Bi_r_i + rob.kl(i).Bv_r_vi ); % i_r_i = i_A_v (v_r_v + v_r_vi)
+        rob.kl(i).Bi_r_i = rob.kl(i).A_iv * ( rob.kl(vor).Bi_r_i + rob.kl(i).Bv_r_vi ); 
+        % i_r_i = i_A_v (v_r_v + v_r_vi)
 
         % Position des Ursprungs im B0-System (fuer Animation benoetigt):
         rob.kl(i).B0_r_i = (rob.kl(i).A_i0)' * rob.kl(i).Bi_r_i;    % 0_r_0 = i_A_0^T * i_r_i
