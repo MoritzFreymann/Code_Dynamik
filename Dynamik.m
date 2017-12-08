@@ -89,7 +89,7 @@ ddot_Q_vd = zeros( size(Tau_id) );
 V_vd = zeros(3,4,rob.N_Q,length(T));
 
 %Berechne Bahn aus Drehmomenten der inversen Dynamik
-for j=1:length(T)
+for j=1:300 %length(T)
     
     %Setze Antriebsmoment
     rob.tau_reg = Tau_id(:,j);

@@ -21,11 +21,11 @@ rob.M=zeros(rob.N_Q,rob.N_Q);
 for i=1:length(rob.kl)
     
     % Uebertrage Jacobi-Matritzen in Ursprung-KOS
-    Jt_o =  rob.kl(i).Bi_Jt_o;  % rob.kl(i).A_i0' *
-    Jr =  rob.kl(i).Bi_Jr;
-    B0_r_i_s =  rob.kl(i).Bi_r_s;
+    Jt_o = rob.kl(i).A_i0' * rob.kl(i).Bi_Jt_o; 
+    Jr = rob.kl(i).A_i0' * rob.kl(i).Bi_Jr;
+    B0_r_i_s = rob.kl(i).A_i0' * rob.kl(i).Bi_r_s;
     % Anteil dieses Koerpers
-    dM = Jt_o' * rob.kl(i).m * Jt_o ...
+    dM = rob.kl(i).m * ( Jt_o' * Jt_o ) ...
        + rob.kl(i).m * Jt_o' * tilde(B0_r_i_s)' * Jr ...
        + rob.kl(i).m * Jr' * tilde(B0_r_i_s) * Jt_o ...
        + Jr' * rob.kl(i).I_o * Jr;
@@ -35,9 +35,9 @@ for i=1:length(rob.kl)
     rob.M = rob.M + dM;
 
 end
-    M = rob.M
+
 % Die aktuellen Beschleunigungen berechnen
 % Hier werden auch die Antriebsmomente der Regelung tau_reg beruecksichtigt
 
-% rob.ddot_q = rob.M \ ( rob.tau_reg - rob.h );
+ rob.ddot_q = rob.M \ ( rob.tau_reg - rob.h );
 end
