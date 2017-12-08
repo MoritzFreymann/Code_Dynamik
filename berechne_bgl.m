@@ -4,7 +4,6 @@ function rob=berechne_bgl(rob)
 % Alle notwendigen Funktionen werden von hier aus aufgerufen
 %
 
-
 %% 1. Berechnung des h-Vektors:
 % Tipp: Nutzen Sie zur Berechnung von h die Funktion "berechne_id.m"
 
