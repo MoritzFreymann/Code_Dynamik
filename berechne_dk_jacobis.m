@@ -70,7 +70,7 @@ function rob = berechne_dk_jacobis(rob,Verfahren)
     rob.Jw = B0_Jt_o;
 
     %% --- ENDE ARBEITSBEREICH --------------------------------------------
-
+    
     % Platzhalter (noch nicht zu bearbeiten)
     if strcmp(Verfahren,'xxx') == true
     rob.Jw = [ B0_Jt_o; B0_Jr];
