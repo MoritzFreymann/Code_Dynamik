@@ -35,10 +35,10 @@ for i=1:n_Elemente
         rob.kl(i).Bi_dot_omega=zeros(3,1);
     end
     %relativer Anteil
-    if strcmp(Verfahren, 'ddoq_q=0')
+    if strcmp(Verfahren, 'ddot_q=0')
         % relativer Anteil ist gleich 0
         % damit ist schon dot_omega berechnet
-    elseif strcmp(Verfahren, 'ddoq_q~=0')
+    elseif strcmp(Verfahren, 'ddot_q~=0')
         rob.kl(i).Bi_dot_omega_rel=[0;0;ddot_phi];
         rob.kl(i).Bi_dot_omega=rob.kl(i).Bi_dot_omega+rob.kl(i).Bi_dot_omega_rel;
     else
