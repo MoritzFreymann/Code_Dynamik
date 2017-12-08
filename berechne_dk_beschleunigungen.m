@@ -38,9 +38,11 @@ for i=1:n_Elemente
     if strcmp(Verfahren, 'ddoq_q=0')
         % relativer Anteil ist gleich 0
         % damit ist schon dot_omega berechnet
-    else
+    elseif strcmp(Verfahren, 'ddoq_q~=0')
         rob.kl(i).Bi_dot_omega_rel=[0;0;ddot_phi];
         rob.kl(i).Bi_dot_omega=rob.kl(i).Bi_dot_omega+rob.kl(i).Bi_dot_omega_rel;
+    else
+        error('Falsche Eingabe!')
     end
       
     %% absolute Translationsbeschleunigung berechnen
