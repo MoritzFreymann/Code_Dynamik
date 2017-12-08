@@ -14,7 +14,7 @@ rob.tau_id=zeros(rob.N_Q,1);
 %2. Kinematik berechnen
 rob=berechne_dk_positionen(rob);
 rob=berechne_dk_geschwindigkeiten(rob);
-rob=berechne_dk_beschleunigungen(rob);
+rob=berechne_dk_beschleunigungen(rob, 'normal');
 rob=berechne_dk_jacobis(rob,'xxx');
 
 %3. Berechnung fuer alle Koerper: Impuls- und Drallaenderung

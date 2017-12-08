@@ -1,4 +1,4 @@
-function rob = berechne_dk_beschleunigungen( rob )
+function rob = berechne_dk_beschleunigungen( rob, Verfahren )
 %Berechnung der Beschleunigungsgroessen, direkte Kinematik 
 % Ergebnisse werden in rob gespeichert
 %
@@ -35,10 +35,14 @@ for i=1:n_Elemente
         rob.kl(i).Bi_dot_omega=zeros(3,1);
     end
     %relativer Anteil
-    rob.kl(i).Bi_dot_omega_rel=[0;0;ddot_phi];
-    rob.kl(i).Bi_dot_omega=rob.kl(i).Bi_dot_omega+rob.kl(i).Bi_dot_omega_rel;
-    
-    
+    if strcmp(Verfahren, 'ddoq_q=0')
+        % relativer Anteil ist gleich 0
+        % damit ist schon dot_omega berechnet
+    else
+        rob.kl(i).Bi_dot_omega_rel=[0;0;ddot_phi];
+        rob.kl(i).Bi_dot_omega=rob.kl(i).Bi_dot_omega+rob.kl(i).Bi_dot_omega_rel;
+    end
+      
     %% absolute Translationsbeschleunigung berechnen
     if vor ~= -1 % hat Vorgaenger
         rob.kl(i).Bi_ddot_r_i=rob.kl(i).A_iv*( rob.kl(vor).Bi_ddot_r_i+...
