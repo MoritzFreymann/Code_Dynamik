@@ -105,9 +105,15 @@ for j=1:length(T)
     dot_Q_vd(:,j) = rob.dot_q;
     ddot_Q_vd(:,j) = rob.ddot_q;
     
-    %Beschleunigungen und Geschwindigkeiten integrieren
-%     rob.dot_q = ?;
-%     rob.q = ?;
+    % Beschleunigungen und Geschwindigkeiten integrieren
+    rob.dot_q = rob.dot_q + ( T(i)-T(i-1) ) * rob.ddot_q;
+    rob.q = rob.q + ( T(i)-T(i-1) ) * rob.dot_q;
+
+    % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
+    for l = 1:6
+        V_vd( :, 1, l, i ) = rob.kl(l).B0_r_i;
+        V_vd( :, 2:4, l, i ) = rob.kl(l).A_i0;
+    end
     
 end
 

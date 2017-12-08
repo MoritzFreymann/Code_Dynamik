@@ -33,7 +33,7 @@ for i=1:length(T)
     rob.zeit = T(i);
  
     %Berechne inverse Dynamik
-    rob = berechne_id(rob);
+    rob = berechne_id(rob, 'ddot_q~=0');
     
     %Gelenkmomente zur spaeteren Analyse speichern
     Tau_id(:,i) = rob.tau_id;   
@@ -106,12 +106,18 @@ for j=1:length(T)
     ddot_Q_vd(:,j) = rob.ddot_q;
     
     %Beschleunigungen und Geschwindigkeiten integrieren
-%     rob.dot_q = ?;
+    rob.dot_q = rob.dot_q + T(i)-T(i-1);
 %     rob.q = ?;
+
+    % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
+    for l = 1:6
+        V_vd( :, 1, l, i ) = rob.kl(l).B0_r_i;
+        V_vd( :, 2:4, l, i ) = rob.kl(l).A_i0;
+    end
     
 end
 
-Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
+% Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
 write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
 write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
 
