@@ -28,7 +28,7 @@ function rob = berechne_dk_jacobis(rob,Verfahren)
         rob.kl(i).Bi_Jt_o = zeros(3,rob.N_Q);
         % allgemein:    i_J_t_i = i_A_v * ( v_J_t_v + tilde_v_r_vi^T * v_J_r_v ) ...( nach Formel 2.3.26, S.17 Skript & Formel 2.3.34, S.18 Skript)
         % hier:         v_J_t_v = 0 (Vorgaenger ist Inertialsystem);
-        %               v_r_tilde_vi = 0 (Ursprung des KOS identisch)
+        %               v_r_tilde_vi = 0 (Ursprung der KOS identisch)
         %               -> i_J_t_i = 0;
         
     % Berechnung fuer alle Koerper

@@ -30,7 +30,7 @@ for i=1:length(rob.kl)
     %   2* i_tilde_omega * dot_i_r_i,si + ddot_i_r_i,si
     % ...(2.3.19) Skript Seite 16
     % hier: i_r_i,si = const. => dot_i_r_i,si = ddot_i_r_i,si = 0
-    %  =>   i_a_si = i_a_i +...
+    %  ->   i_a_si = i_a_i +...
     % ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
     % ---------------------------------------------------------------------
     
