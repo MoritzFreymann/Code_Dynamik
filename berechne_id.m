@@ -33,7 +33,7 @@ for i=1:length(rob.kl)
     %  ->   i_a_si = i_a_i +...
     % ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
     % ---------------------------------------------------------------------
-    
+    a = rob.kl(i).Bi_ddot_r_s;
     % Impulsaenderung - Schwerkraft im Koerper-KOS
     F = rob.kl(i).m * rob.kl(i).Bi_ddot_r_s - rob.kl(i).m * rob.kl(i).A_i0 * rob.B0_g;
     %...nach (3.3.21) Skript Seite 36

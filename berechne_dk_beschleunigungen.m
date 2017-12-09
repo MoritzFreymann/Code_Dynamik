@@ -44,7 +44,7 @@ for i=1:n_Elemente
     else
         error('Falsche Eingabe!')
     end
-      
+     
     %% absolute Translationsbeschleunigung berechnen
     if vor ~= -1 % hat Vorgaenger
         rob.kl(i).Bi_ddot_r_i=rob.kl(i).A_iv*( rob.kl(vor).Bi_ddot_r_i+...
