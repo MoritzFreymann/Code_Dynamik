@@ -18,7 +18,7 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'Euler_ex'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
                         
@@ -123,8 +123,7 @@ for j=1:300 %length(T)
         
     elseif strcmp(DGLVerfahren,'AB2') == true
         % Verwende Adams-Bashforth 2
-        
-        if ( norm(ddot_q_vor) == 0 && norm(dot_q_vor) == 0 )
+        if norm( ddot_q_vor && dot_q_vor ) == 0
             % Beim ersten Mal Werte ueber explizites Euler-Verfahren berechnen
             rob.dot_q = rob.dot_q + rob.dt * rob.ddot_q;
             rob.q = rob.q + rob.dt * rob.dot_q;
@@ -134,8 +133,7 @@ for j=1:300 %length(T)
             rob.q = rob.q + (rob.dt/2.0) * (3*rob.dot_q - dot_q_vor);
             
             % Speichere Geschwindigkeit und Beschleunigung
-            dot_q_vor = rob.dot_q;
-            ddot_q_vor = rob.ddot_q;
+            
         end
     else
         % Ungueltige Option
