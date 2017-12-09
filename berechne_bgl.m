@@ -38,6 +38,5 @@ end
 
 % Die aktuellen Beschleunigungen berechnen
 % Hier werden auch die Antriebsmomente der Regelung tau_reg beruecksichtigt
-
  rob.ddot_q = rob.M \ ( rob.tau_reg - rob.h );
 end
