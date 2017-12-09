@@ -35,9 +35,9 @@ for i=1:length(rob.kl)
     rob.M = rob.M + dM;
 
 end
-    inv(rob.M)
-% % Die aktuellen Beschleunigungen berechnen
-% % Hier werden auch die Antriebsmomente der Regelung tau_reg beruecksichtigt
-% 
-%  rob.ddot_q = rob.M \ ( rob.tau_reg - rob.h );
-% end
+
+% Die aktuellen Beschleunigungen berechnen
+% Hier werden auch die Antriebsmomente der Regelung tau_reg beruecksichtigt
+
+ rob.ddot_q = rob.M \ ( rob.tau_reg - rob.h );
+end

@@ -117,26 +117,27 @@ for j=1:length(T)
     
     if strcmp(DGLVerfahren,'Euler_ex') == true        
         % Gelenkgeschwindigkeiten/-winkel ueber explizites Euler-Verfahren berechnen
-        rob.q = rob.q + rob.dt * dot_Q(:,j);
-        rob.dot_q = rob.dot_q + rob.dt * ddot_Q(:,j);        
+        rob.q = rob.q + rob.dt * rob.dot_q;
+        rob.dot_q = rob.dot_q + rob.dt * rob.ddot_q;
+        
         
     elseif strcmp(DGLVerfahren,'AB2') == true
         % Verwende Adams-Bashforth 2
         
         if j == 1            
             % Beim ersten Mal Werte ueber explizites Euler-Verfahren berechnen           
-            rob.q = rob.q + rob.dt * dot_Q(:,j);
-            rob.dot_q = rob.dot_q + rob.dt * ddot_Q(:,j);
+            rob.q = rob.q + rob.dt * rob.dot_q;
+            rob.dot_q = rob.dot_q + rob.dt * rob.ddot_q;
         else            
-            % Gelenkwinkel berechnen
-            rob.q = rob.q + (rob.dt/2.0) * (3*dot_Q(:,j) - dot_q_vor);
-            % Speichere Geschwindigkeit fuer naechsten Zeitschritt
-            dot_q_vor = dot_Q(:,j);
+            % Gelenkgeschwindigkeiten/-winkel ueber Adams-Bashforth2-Verfahren berechnen
+            rob.q = rob.q + (rob.dt/2.0) * (3*rob.dot_q - dot_q_vor);
+            % Speichere Geschwindigkeit und Beschleunigung
+            dot_q_vor = rob.dot_q;
+            rob.dot_q = rob.dot_q + (rob.dt/2.0) * (3*rob.ddot_q - ddot_q_vor);
             
-            % Gelenkgeschwindigkeiten berechnen
-            rob.dot_q = rob.dot_q + (rob.dt/2.0) * (3*ddot_Q(:,j) - ddot_q_vor);           
-            % Speichere Beschleunigung
-            ddot_q_vor = ddot_Q(:,j);
+            % Speichere Geschwindigkeit und Beschleunigung
+            dot_q_vor = rob.dot_q;
+            ddot_q_vor = rob.ddot_q;
         end
     else
         % Ungueltige Option
@@ -158,17 +159,17 @@ end
 % write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
 % write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
 % 
-%Differenzen der Winkel zur Ueberpruefung plotten
-e_Q = Q - Q_vd;
-figure();
-plot( T, e_Q(1,:), ...
-      T, e_Q(2,:), ...
-      T, e_Q(3,:), ...
-      T, e_Q(4,:), ...
-      T, e_Q(5,:), ...
-      T, e_Q(6,:) );
-  
-h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$','Location','northwest');
-h.Interpreter='latex';
-xlabel( 't in [s]','Interpreter','latex');
-ylabel( '$e_q$ in [rad]','Interpreter','latex');
+% %Differenzen der Winkel zur Ueberpruefung plotten
+% e_Q = Q - Q_vd;
+% figure();
+% plot( T, e_Q(1,:), ...
+%       T, e_Q(2,:), ...
+%       T, e_Q(3,:), ...
+%       T, e_Q(4,:), ...
+%       T, e_Q(5,:), ...
+%       T, e_Q(6,:) );
+%   
+% h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$','Location','northwest');
+% h.Interpreter='latex';
+% xlabel( 't in [s]','Interpreter','latex');
+% ylabel( '$e_q$ in [rad]','Interpreter','latex');
