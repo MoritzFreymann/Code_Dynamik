@@ -1,4 +1,4 @@
-function rob = berechne_dk_positionen_vektorkette(rob)
+function rob = berechne_dk_positionen(rob)
     % Berechnung der Positions-Groessen der direkten Kinematik (Lage und Orientierung)
     % ueber die Bildung einer Vektorkette
 

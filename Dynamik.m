@@ -109,13 +109,19 @@ for j=1:length(T)
     rob.q = Q(:,j);
     rob.dot_q = dot_Q(:,j);  
     
-    %Berechne Winkelbeschleunigungen (direkte Dynamik)
+    % Berechne Winkelbeschleunigungen (direkte Dynamik)
     rob = berechne_bgl(rob);
     
     % Gelenkwinkelbahn abspeichern
     Q_vd(:,j) = rob.q;
     dot_Q_vd(:,j) = rob.dot_q;
     ddot_Q_vd(:,j) = rob.ddot_q;
+    
+    % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
+    for l = 1:6
+        V_vd( :, 1, l, j ) = rob.kl(l).B0_r_i;
+        V_vd( :, 2:4, l, j ) = rob.kl(l).A_i0;
+    end
     
     % Beschleunigungen und Geschwindigkeiten integrieren
     
@@ -145,23 +151,13 @@ for j=1:length(T)
     else
         % Ungueltige Option
         error('Ungueltige Option gewaehlt!')
-    end
-    
-     % Berechnung der Vektoren B0_r_i und der Transformationsmatrizen A_i0
-     rob=berechne_dk_positionen(rob); 
-
-    % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
-    for l = 1:6
-        V_vd( :, 1, l, j ) = rob.kl(l).B0_r_i;
-        V_vd( :, 2:4, l, j ) = rob.kl(l).A_i0;
-    end
-    
+    end    
 end
-% 
-% % Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
-% write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
-% write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
-% 
+
+% Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
+write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
+write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
+
 %Differenzen der Winkel zur Ueberpruefung plotten
 e_Q = Q - Q_vd;
 figure();
