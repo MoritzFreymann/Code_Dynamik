@@ -40,10 +40,10 @@ for i=1:length(T)
     
     rob.zeit = T(i);
  
-    %Berechne inverse Dynamik
+    % Berechne inverse Dynamik
     rob = berechne_id(rob, 'ddot_q~=0');
     
-    %Gelenkmomente zur spaeteren Analyse speichern
+    % Gelenkmomente zur spaeteren Analyse speichern
     Tau_id(:,i) = rob.tau_id;   
     
     % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
@@ -53,33 +53,33 @@ for i=1:length(T)
     end
 end
 
-%Drehmomentenverlauf plotten
-figure();
-plot( T, Tau_id(1,:), ...
-      T, Tau_id(2,:), ...
-      T, Tau_id(3,:), ...
-      T, Tau_id(4,:), ...
-      T, Tau_id(5,:), ...
-      T, Tau_id(6,:) );
-  
-h=legend( '$\tau_1$','$\tau_2$','$\tau_3$','$\tau_4$','$\tau_5$','$\tau_6$');
-h.Interpreter='latex';
-xlabel( 't in [s]','Interpreter','latex');
-ylabel( '$\tau$ in [Nm]','Interpreter','latex');
-
-%Winkelgeschwindigkeit plotten
-figure();
-plot( T, dot_Q(1,:), ...
-      T, dot_Q(2,:), ...
-      T, dot_Q(3,:), ...
-      T, dot_Q(4,:), ...
-      T, dot_Q(5,:), ...
-      T, dot_Q(6,:) );
-
-h=legend( '$\dot q_1$','$\dot q_2$','$\dot q_3$','$\dot q_4$','$\dot q_5$','$\dot q_6$' );
-h.Interpreter='latex';
-xlabel( 't in [s]','Interpreter','latex');
-ylabel( '$\dot{q}$ in [rad/s]','Interpreter','latex');
+% %Drehmomentenverlauf plotten
+% figure();
+% plot( T, Tau_id(1,:), ...
+%       T, Tau_id(2,:), ...
+%       T, Tau_id(3,:), ...
+%       T, Tau_id(4,:), ...
+%       T, Tau_id(5,:), ...
+%       T, Tau_id(6,:) );
+%   
+% h=legend( '$\tau_1$','$\tau_2$','$\tau_3$','$\tau_4$','$\tau_5$','$\tau_6$');
+% h.Interpreter='latex';
+% xlabel( 't in [s]','Interpreter','latex');
+% ylabel( '$\tau$ in [Nm]','Interpreter','latex');
+% 
+% %Winkelgeschwindigkeit plotten
+% figure();
+% plot( T, dot_Q(1,:), ...
+%       T, dot_Q(2,:), ...
+%       T, dot_Q(3,:), ...
+%       T, dot_Q(4,:), ...
+%       T, dot_Q(5,:), ...
+%       T, dot_Q(6,:) );
+% 
+% h=legend( '$\dot q_1$','$\dot q_2$','$\dot q_3$','$\dot q_4$','$\dot q_5$','$\dot q_6$' );
+% h.Interpreter='latex';
+% xlabel( 't in [s]','Interpreter','latex');
+% ylabel( '$\dot{q}$ in [rad/s]','Interpreter','latex');
 
 %% Direkte Dynamik
 
@@ -143,7 +143,7 @@ for j=1:length(T)
     end
     
      % Berechnung der Vektoren B0_r_i und der Transformationsmatrizen A_i0
-     rob=berechne_dk_positionen_vektorkette(rob); 
+     % rob=berechne_dk_positionen(rob); 
 
     % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
     for l = 1:6
@@ -152,22 +152,22 @@ for j=1:length(T)
     end
     
 end
-
-% Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
-write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
-write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
-
-%Differenzen der Winkel zur Ueberpruefung plotten
-e_Q = Q - Q_vd;
-figure();
-plot( T, e_Q(1,:), ...
-      T, e_Q(2,:), ...
-      T, e_Q(3,:), ...
-      T, e_Q(4,:), ...
-      T, e_Q(5,:), ...
-      T, e_Q(6,:) );
-  
-h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$','Location','northwest');
-h.Interpreter='latex';
-xlabel( 't in [s]','Interpreter','latex');
-ylabel( '$e_q$ in [rad]','Interpreter','latex');
+% 
+% % Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
+% write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
+% write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
+% 
+% %Differenzen der Winkel zur Ueberpruefung plotten
+% e_Q = Q - Q_vd;
+% figure();
+% plot( T, e_Q(1,:), ...
+%       T, e_Q(2,:), ...
+%       T, e_Q(3,:), ...
+%       T, e_Q(4,:), ...
+%       T, e_Q(5,:), ...
+%       T, e_Q(6,:) );
+%   
+% h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$','Location','northwest');
+% h.Interpreter='latex';
+% xlabel( 't in [s]','Interpreter','latex');
+% ylabel( '$e_q$ in [rad]','Interpreter','latex');
