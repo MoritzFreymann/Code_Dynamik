@@ -12,7 +12,7 @@ function rob = berechne_id(rob, Verfahren)
 rob.tau_id=zeros(rob.N_Q,1);
 
 %2. Kinematik berechnen
-rob=berechne_dk_positionen(rob);
+rob=berechne_dk_positionen_vektorkette(rob);
 rob=berechne_dk_geschwindigkeiten(rob);
 rob=berechne_dk_beschleunigungen(rob, Verfahren);
 rob=berechne_dk_jacobis(rob,'xxx');

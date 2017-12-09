@@ -143,7 +143,7 @@ for j=1:length(T)
     end
     
      % Berechnung der Vektoren B0_r_i und der Transformationsmatrizen A_i0
-     rob=berechne_dk_positionen(rob); 
+     rob=berechne_dk_positionen_vektorkette(rob); 
 
     % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
     for l = 1:6
