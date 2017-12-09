@@ -31,7 +31,7 @@ function rob = berechne_dk_geschwindigkeiten(rob)
         
         % Absolute Winkelgeschwindigkeit berechnen
         % ----------------------------------------
-        rob.kl(i).Bi_omega = rob.kl(i).A_iv * ( rob.kl(vor).Bi_omega + rob.kl(i).Bi_omega_rel ); 
+        rob.kl(i).Bi_omega = rob.kl(i).A_iv * ( rob.kl(vor).Bi_omega + rob.kl(vor).Bi_omega_rel ); 
         % i_omega_i = i_A_v * ( v_omega_v + v_omega_v,i )
         
         % Absolute Translationsgeschwindigkeit berechnen
