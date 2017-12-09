@@ -97,7 +97,7 @@ ddot_Q_vd = zeros( size(Tau_id) );
 V_vd = zeros(3,4,rob.N_Q,length(T));
 
 %Berechne Bahn aus Drehmomenten der inversen Dynamik
-for j=1:300 %length(T)
+for j=1:length(T)
     
     %Setze Antriebsmoment
     rob.tau_reg = Tau_id(:,j);
@@ -142,12 +142,13 @@ for j=1:300 %length(T)
         error('Ungueltige Option gewaehlt!')
     end
     
-    
+     % Berechnung der Vektoren B0_r_i und der Transformationsmatrizen A_i0
+     rob=berechne_dk_positionen(rob); 
 
     % Speichere Vektoren B0_r_i und Transformationsmatrizen A_i0 fuer Visualisierung im Viewer
     for l = 1:6
-        V_vd( :, 1, l, i ) = rob.kl(l).B0_r_i;
-        V_vd( :, 2:4, l, i ) = rob.kl(l).A_i0;
+        V_vd( :, 1, l, j ) = rob.kl(l).B0_r_i;
+        V_vd( :, 2:4, l, j ) = rob.kl(l).A_i0;
     end
     
 end
