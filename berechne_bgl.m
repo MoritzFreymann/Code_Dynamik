@@ -23,6 +23,7 @@ for i=1:length(rob.kl)
     Jt_o = rob.kl(i).A_i0' * rob.kl(i).Bi_Jt_o; 
     Jr = rob.kl(i).A_i0' * rob.kl(i).Bi_Jr;
     B0_r_i_s = rob.kl(i).A_i0' * rob.kl(i).Bi_r_s;
+    
     % Anteil dieses Koerpers
     dM = rob.kl(i).m * ( Jt_o' * Jt_o ) ...
        + rob.kl(i).m * Jt_o' * tilde(B0_r_i_s)' * Jr ...
