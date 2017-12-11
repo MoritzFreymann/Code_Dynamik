@@ -17,8 +17,6 @@ rob = erstelle_roboter();
 %Datenmatrix fuer Viewer - Sollbahn
 V = zeros(3,4,6,length(T));
 
-K = 50*eye(6);
-
 % 
 DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
@@ -101,14 +99,10 @@ V_vd = zeros(3,4,rob.N_Q,length(T));
 %Berechne Bahn aus Drehmomenten der inversen Dynamik
 for j=1:length(T)
     
-    %Setze Antriebsmoment
+    % Setze Antriebsmoment
     rob.tau_reg = Tau_id(:,j);
-    
-%     e = Q(:,j) - rob.q;
-%     % Regelung von Antriebsmoment
-%     rob.tau_reg = rob.tau_reg - K * e;
-    
-    %Setze die aktuelle Zeit
+       
+    % Setze die aktuelle Zeit
     rob.zeit = T(j);
     
     % Berechne Winkelbeschleunigungen (direkte Dynamik)
