@@ -19,16 +19,11 @@ rob.M=zeros(rob.N_Q,rob.N_Q);
 % Beitraege aller Koerper addieren
 for i=1:length(rob.kl)
     
-    % Uebertrage Jacobi-Matritzen in Ursprung-KOS
-    Jt_o = rob.kl(i).Bi_Jt_o;   % rob.kl(i).A_i0' * 
-    Jr = rob.kl(i).Bi_Jr;
-    B0_r_i_s = rob.kl(i).Bi_r_s;
-    
     % Anteil dieses Koerpers
-    dM = rob.kl(i).m * ( Jt_o' * Jt_o ) ...
-       + rob.kl(i).m * Jt_o' * tilde(B0_r_i_s)' * Jr ...
-       + rob.kl(i).m * Jr' * tilde(B0_r_i_s) * Jt_o ...
-       + Jr' * rob.kl(i).I_o * Jr;
+    dM = rob.kl(i).m * ( rob.kl(i).Bi_Jt_o' * rob.kl(i).Bi_Jt_o ) ...
+       + rob.kl(i).m * rob.kl(i).Bi_Jt_o' * tilde(rob.kl(i).Bi_r_s)' * rob.kl(i).Bi_Jr ...
+       + rob.kl(i).m * rob.kl(i).Bi_Jr' * tilde(rob.kl(i).Bi_r_s) * rob.kl(i).Bi_Jt_o ...
+       + rob.kl(i).Bi_Jr' * rob.kl(i).I_o * rob.kl(i).Bi_Jr;
     % nach ...(3.4.4) Skript Seite 39
     % Anteil zur Gesamt-Massenmatrix addieren 
     rob.M = rob.M + dM;
