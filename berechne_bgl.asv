@@ -24,11 +24,16 @@ for i=1:length(rob.kl)
     Jr = rob.kl(i).Bi_Jr;
     B0_r_i_s = rob.kl(i).Bi_r_s;
     
+    dm_a = rob.kl(i).m * ( Jt_o' * Jt_o )
+    dm_b = rob.kl(i).m * Jt_o' * tilde(B0_r_i_s)' * Jr
+    dm_c = rob.kl(i).m * Jr' * tilde(B0_r_i_s) * Jt_o
+    dm_d = Jr' * rob.kl(i).I_o * Jr
+    
     % Anteil dieses Koerpers
     dM = rob.kl(i).m * ( Jt_o' * Jt_o ) ...
        + rob.kl(i).m * Jt_o' * tilde(B0_r_i_s)' * Jr ...
        + rob.kl(i).m * Jr' * tilde(B0_r_i_s) * Jt_o ...
-       + Jr' * rob.kl(i).I_o * Jr;
+       + Jr' * rob.kl(i).A_i0' * rob.kl(i).I_o * Jr;
     % nach ...(3.4.4) Skript Seite 39
     % Anteil zur Gesamt-Massenmatrix addieren 
     rob.M = rob.M + dM;

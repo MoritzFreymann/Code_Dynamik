@@ -69,12 +69,12 @@ ylabel( '$\tau$ in [Nm]','Interpreter','latex');
 
 %Winkelgeschwindigkeit plotten
 figure();
-plot( T, ddot_Q(1,:), ...
-      T, ddot_Q(2,:), ...
-      T, ddot_Q(3,:), ...
-      T, ddot_Q(4,:), ...
-      T, ddot_Q(5,:), ...
-      T, ddot_Q(6,:) );
+plot( T, dot_Q(1,:), ...
+      T, dot_Q(2,:), ...
+      T, dot_Q(3,:), ...
+      T, dot_Q(4,:), ...
+      T, dot_Q(5,:), ...
+      T, dot_Q(6,:) );
 
 h=legend( '$\dot q_1$','$\dot q_2$','$\dot q_3$','$\dot q_4$','$\dot q_5$','$\dot q_6$' );
 h.Interpreter='latex';
@@ -105,10 +105,6 @@ for j=1:length(T)
     %Setze die aktuelle Zeit
     rob.zeit = T(j);
     
-    % cookie
-    rob.q = Q(:,j);
-    rob.dot_q = dot_Q(:,j);  
-    
     % Berechne Winkelbeschleunigungen (direkte Dynamik)
     rob = berechne_bgl(rob);
     
@@ -127,26 +123,26 @@ for j=1:length(T)
     
     if strcmp(DGLVerfahren,'Euler_ex') == true        
         % Gelenkgeschwindigkeiten/-winkel ueber explizites Euler-Verfahren berechnen
-        rob.q = rob.q + rob.dt * dot_Q(:,j);
-        rob.dot_q = rob.dot_q + rob.dt * ddot_Q(:,j);        
+        rob.q = rob.q + rob.dt * rob.dot_q;
+        rob.dot_q = rob.dot_q + rob.dt * rob.ddot_q;        
         
     elseif strcmp(DGLVerfahren,'AB2') == true
         % Verwende Adams-Bashforth 2
         
         if j == 1            
             % Beim ersten Mal Werte ueber explizites Euler-Verfahren berechnen           
-            rob.q = rob.q + rob.dt * dot_Q(:,j);
-            rob.dot_q = rob.dot_q + rob.dt * ddot_Q(:,j);
+            rob.q = rob.q + rob.dt * rob.dot_q;
+            rob.dot_q = rob.dot_q + rob.dt * rob.ddot_q;
         else            
             % Gelenkwinkel berechnen
-            rob.q = rob.q + (rob.dt/2.0) * (3*dot_Q(:,j) - dot_q_vor);
+            rob.q = rob.q + (rob.dt/2.0) * (3*rob.dot_q - dot_q_vor);
             % Speichere Geschwindigkeit fuer naechsten Zeitschritt
-            dot_q_vor = dot_Q(:,j);
+            dot_q_vor = rob.dot_q;
             
             % Gelenkgeschwindigkeiten berechnen
-            rob.dot_q = rob.dot_q + (rob.dt/2.0) * (3*ddot_Q(:,j) - ddot_q_vor);           
+            rob.dot_q = rob.dot_q + (rob.dt/2.0) * (3*rob.ddot_q - ddot_q_vor);           
             % Speichere Beschleunigung
-            ddot_q_vor = ddot_Q(:,j);
+            ddot_q_vor = rob.ddot_q;
         end
     else
         % Ungueltige Option
@@ -154,11 +150,14 @@ for j=1:length(T)
     end    
 end
 
+% Abweichung der Gelenkbeschleunigungen
+e_ddot_Q = ddot_Q - ddot_Q_vd;
+
 % Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
 write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
 write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
 
-%Differenzen der Winkel zur Ueberpruefung plotten
+% Differenzen der Winkel zur Ueberpruefung plotten
 e_Q = Q - Q_vd;
 figure();
 plot( T, e_Q(1,:), ...

@@ -33,7 +33,7 @@ for i=1:length(rob.kl)
     %  ->   i_a_si = i_a_i +...
     % ( i_dot_tilde_omega + i_tilde_omega * i_tilde_omega) * i_r_i,si
     % ---------------------------------------------------------------------
-    a = rob.kl(i).Bi_ddot_r_s;
+
     % Impulsaenderung - Schwerkraft im Koerper-KOS
     F = rob.kl(i).m * rob.kl(i).Bi_ddot_r_s - rob.kl(i).m * rob.kl(i).A_i0 * rob.B0_g;
     %...nach (3.3.21) Skript Seite 36
@@ -41,10 +41,10 @@ for i=1:length(rob.kl)
     % Drallaenderung - Moment der Schwerkraft im Koerper-KOS
     T = rob.kl(i).I_o * rob.kl(i).Bi_dot_omega +...
         tilde(rob.kl(i).Bi_omega) * rob.kl(i).I_o * rob.kl(i).Bi_omega +...
-        rob.kl(i).m * tilde(rob.kl(i).Bi_r_s) * rob.kl(i).Bi_ddot_r_s -...
+        rob.kl(i).m * tilde(rob.kl(i).Bi_r_s) * rob.kl(i).Bi_ddot_r_i -...
         rob.kl(i).m * tilde(rob.kl(i).Bi_r_s) * rob.kl(i).A_i0 * rob.B0_g;
     % Io_i * dot_omega_i +  tilde_omega_i * Io_i * omega_i +...
-    % m_i * tilde_r_i,si * a_si - Mi_g
+    % m_i * tilde_r_i,si * a_i - Mi_g
     %...nach (3.3.21) Skript Seite 36
     
     % Projektion auf zwangsfreie Richtungen und Addition zu tau_id
