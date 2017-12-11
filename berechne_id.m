@@ -52,6 +52,3 @@ for i=1:length(rob.kl)
     
 end
 end
-
-
-

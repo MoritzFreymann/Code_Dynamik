@@ -34,6 +34,7 @@ for i=1:n_Elemente
     else
         rob.kl(i).Bi_dot_omega=zeros(3,1);
     end
+    
     %relativer Anteil
     if strcmp(Verfahren, 'ddot_q=0')
         % relativer Anteil ist gleich 0
