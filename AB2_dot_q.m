@@ -1,4 +1,4 @@
-function rob = AB2_dot_q( rob, j, dot_phi_vor )
+function [rob, dot_phi_vor] = AB2_dot_q( rob, j, dot_phi_vor )
 % Die Funktion berechnet gemaess dem Adams-Bashforth-Verfahren zweiter
 % Ordnung ausgehend von den Funktionswerten dot_Phi_i und dot_Phi_i-1 den
 % Wert Phi_i+1 hier gleich rob.dot_q
@@ -17,5 +17,7 @@ else
     rob.dot_q = rob.dot_q + (rob.dt/2.0) * (3*rob.ddot_q - dot_phi_vor);
 end
 
+    % Speichere Beschleunigung
+    dot_phi_vor = rob.ddot_q;
 end
 
