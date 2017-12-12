@@ -28,6 +28,8 @@ dot_q_vor = zeros(rob.N_Q,1);
 dot_q_vvor = zeros( size(dot_q_vor) );
 ddot_q_vor = zeros( size(dot_q_vor) );
 
+K = 0.01*eye(rob.N_Q);
+
 %% Inverse Dynamik
 
 %Variable zur Speicherung der berechneten Gelenkmomente
@@ -105,10 +107,10 @@ V_vd = zeros(3,4,rob.N_Q,length(T));
 for j=1:length(T)
     
     % Regelung
-    e_tau(:,j) = Regelung( rob, j, Q, dot_Q, Q_vd, dot_Q_vd );
+    e_tau(:,j) = Regelung( rob, j, Q, dot_Q );
     
     % Setze Antriebsmoment
-    rob.tau_reg = Tau_id(:,j);
+    rob.tau_reg = Tau_id(:,j) + K*e_tau(:,j);
        
     % Setze die aktuelle Zeit
     rob.zeit = T(j);

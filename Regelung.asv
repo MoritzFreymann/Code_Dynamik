@@ -1,4 +1,4 @@
-function e_tau = Regelung( rob, j, Q, dot_Q, Q_vd, dot_Q_vd )
+function e_tau = Regelung( rob, j, Q, dot_Q )
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -9,11 +9,17 @@ function e_tau = Regelung( rob, j, Q, dot_Q, Q_vd, dot_Q_vd )
     % Berechne h_soll mit inverser Dynmaik
     rob.q = Q(:,j);
     rob.dot_q = dot_Q(:,j);
+    rob = berechne_id(rob, 'ddot_q=0' );
     h_soll = rob.h;
     
     e_tau = h_soll - h_ist;
     
-    % Zurueckstzen 
-
+    % Zuruecksetzen
+    if j == 1
+        % Zum Zeitpunkt 1 sind Ist- und Sollzuastaende gleich
+    else
+        rob.q = Q_vd(:,j-1);
+        rob.dot_q = dot_Q_vd(:,j-1);
+    end
 end
 
