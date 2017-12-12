@@ -22,7 +22,11 @@ function e_tau = Regelung( rob, j, Q, dot_Q )
     
     % Zuruecksetzen von q_ist und dot_q_ist
     rob.q = q;
+    
     rob.dot_q = dot_q;
+    if j == 4003
+         e_tau = 0* e_tau;
+    end
 
 end
 

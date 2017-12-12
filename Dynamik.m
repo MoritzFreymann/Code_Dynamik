@@ -28,7 +28,7 @@ dot_q_vor = zeros(rob.N_Q,1);
 dot_q_vvor = zeros( size(dot_q_vor) );
 ddot_q_vor = zeros( size(dot_q_vor) );
 
-K = 0.01*eye(rob.N_Q);
+
 
 %% Inverse Dynamik
 
@@ -86,6 +86,8 @@ h.Interpreter='latex';
 xlabel( 't in [s]','Interpreter','latex');
 ylabel( '$\dot{q}$ in [rad/s]','Interpreter','latex');
 
+for k=0.2:0.05:0.4
+K = k*eye(rob.N_Q);
 %% Direkte Dynamik
 
 %Setze Roboter auf Anfangsposition
@@ -162,16 +164,17 @@ for j=1:length(T)
     end    
 end
 
-% Abweichung der Gelenkbeschleunigungen
-e_ddot_Q = ddot_Q - ddot_Q_vd;
-
 % Speichere die Gelenkwinkel fuer den Viewer in .csv-Datei
 write_data(T,V,6,'trajectory_Dynamik_Soll.csv');
 write_data(T,V_vd,6,'trajectory_Dynamik_Ist.csv');
 
 % Differenzen der Winkel zur Ueberpruefung plotten
 e_Q = Q - Q_vd;
-figure();
+
+number = sprintf('%d', k); 
+title = strcat('k = ',number);
+
+figure('Name',title,'NumberTitle','off');
 plot( T, e_Q(1,:), ...
       T, e_Q(2,:), ...
       T, e_Q(3,:), ...
@@ -183,3 +186,5 @@ h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$
 h.Interpreter='latex';
 xlabel( 't in [s]','Interpreter','latex');
 ylabel( '$e_q$ in [rad]','Interpreter','latex');
+
+end
