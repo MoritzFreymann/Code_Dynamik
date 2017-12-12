@@ -142,10 +142,8 @@ for j=1:length(T)
         % Benutze expliziztes (klassiches) Runge-Kutta-Verfahren 4.Ordnung
         
         % Berechne Gelenkwinkel/-geschwindigkeiten
-        rob = expl_RungeKutta4( rob, j, dot_q_vor );
+        [rob, dot_q_vor] = expl_RungeKutta4( rob, j, dot_q_vor );
         
-            % Speichere Geschwindigkeit fuer naechsten Zeitschritt
-            dot_q_vor = rob.dot_q;
     else
         % Ungueltige Option
         error('Ungueltige Option gewaehlt!')
