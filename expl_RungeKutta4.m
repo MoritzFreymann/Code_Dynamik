@@ -53,14 +53,12 @@ k4 = rob.ddot_q;
 rob.q = q_i;
 rob.dot_q = phi_i;
 
-% % Berechne q_i+1 ueber Adams-Bashforth-Verfahren 2. Ordnung
-% [rob, phi_i_vor] = AB2_q( rob, j, phi_i_vor );
+% Berechne q_i+1 ueber Adams-Bashforth-Verfahren 2. Ordnung
+[rob, phi_i_vor] = AB2_q( rob, j, phi_i_vor );
 
 % Berechne dot_q_i+1 = phi_i+1
 rob.dot_q = phi_i + rob.dt * ( (1/6)*k1 + (1/3)*k2 + (1/3)*k3 + (1/6)*k4 );
 
-% Berechne q_i+1 ueber implizites Euler-Vefahren
-rob.q = q_i + rob.dt/2.0 * (phi_i + rob.dot_q);
 
 % Setzte ddot_q auf Ursprungswert zurueck
 rob.ddot_q = dot_phi_i;

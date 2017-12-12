@@ -18,10 +18,10 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'ex_RK4'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
-                        % 'ex_RK4'  ...explizites klassisches
+                        % 'ex_RK4'  ...explizites (klassisches)
                         % Runge-Kutta-Verfahten 4. Ordnung
                         
 dot_q_vor = zeros(rob.N_Q,1);
@@ -96,11 +96,16 @@ Q_vd = zeros( size(Tau_id) );
 dot_Q_vd = zeros( size(Tau_id) );
 ddot_Q_vd = zeros( size(Tau_id) );
 
+e_tau = zeros( size(Tau_id) );
+
 % Datenmatrix fuer Viewer - Istbahn
 V_vd = zeros(3,4,rob.N_Q,length(T));
 
-%Berechne Bahn aus Drehmomenten der inversen Dynamik
+% Berechne Bahn aus Drehmomenten der inversen Dynamik
 for j=1:length(T)
+    
+    % Regelung
+    e_tau(:,j) = Regelung( rob, j, Q, dot_Q, Q_vd, dot_Q_vd );
     
     % Setze Antriebsmoment
     rob.tau_reg = Tau_id(:,j);
@@ -137,9 +142,10 @@ for j=1:length(T)
 %             % Berechne Gelenkwinkel
 %             [rob, dot_q_vor] = AB2_q( rob, j, dot_q_vor );
 
-            % Berechne Gelenkgeshwindigkeiten
+            % Berechne Gelenkgeschwindigkeiten
             [rob, ddot_q_vor] = AB2_dot_q( rob, j, ddot_q_vor ); 
             
+            % Berechne Gelenkwinkel
             [rob, dot_q_vor, dot_q_vvor] = AM3_q( rob, j, dot_q_vor, dot_q_vvor );
                       
     elseif strcmp(DGLVerfahren, 'ex_RK4') == true
