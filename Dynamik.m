@@ -18,7 +18,7 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'ex_RK4'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
                         % 'ex_RK4'  ...explizites klassisches

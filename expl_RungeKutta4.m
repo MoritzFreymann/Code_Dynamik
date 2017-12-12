@@ -14,7 +14,6 @@ function [rob, phi_i_vor] = expl_RungeKutta4( rob, j, phi_i_vor )
 % j := aktueller Zeitschritt
 % phi_i_vor := Phi zum Zeitpunkt i (hier gleich rob.dot_q)
 
-
 %% Merke Anfangswerte fuer q, dot_q und ddot_q
 dot_phi_i = rob.ddot_q;
 phi_i = rob.dot_q;  
@@ -49,7 +48,8 @@ k4 = rob.ddot_q;
 
 %% Berechne endgueltige Werte
 
-% Setzte dot_q auf Ursprungswert zurueck
+% Setzte q und dot_q auf Ursprungswert zurueck
+rob.q = q_i;
 rob.dot_q = phi_i;
 
 % Berechne q_i+1 ueber Adams-Bashforth-Verfahren 2. Ordnung
