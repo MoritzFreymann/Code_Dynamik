@@ -18,9 +18,11 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'Euler_ex'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
+                        % 'ex_RK4'  ...explizites klassisches
+                        % Runge-Kutta-Verfahten 4. Ordnung
                         
 dot_q_vor = zeros(rob.N_Q,1);
 ddot_q_vor = zeros( size(dot_q_vor) );
@@ -119,7 +121,9 @@ for j=1:length(T)
         V_vd( :, 2:4, l, j ) = rob.kl(l).A_i0;
     end
     
-    % Beschleunigungen und Geschwindigkeiten integrieren
+    % Beschleunigungen und Geschwindigkeiten integrieren,
+    % um Gelenkwinkel/-geschwindigkeiten fuer nachsten Zeitschritt zu
+    % berechnen
     
     if strcmp(DGLVerfahren,'Euler_ex') == true        
         % Gelenkgeschwindigkeiten/-winkel ueber explizites Euler-Verfahren berechnen
@@ -144,6 +148,8 @@ for j=1:length(T)
             % Speichere Beschleunigung
             ddot_q_vor = rob.ddot_q;
         end
+    elseif strcmp(DGLVerfahren, 'ex_RK4') == true   
+        rob = expl_RungeKutta4( rob );
     else
         % Ungueltige Option
         error('Ungueltige Option gewaehlt!')
