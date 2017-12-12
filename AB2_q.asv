@@ -1,0 +1,14 @@
+function rob = AB2_q( rob, j, dot_phi_vor )
+% Die Funktion berechnet gemaess dem Adams-Bashforth-Verfahren zweiter
+% Ordnung ausgehend von dem aktuellen Funktionswert 
+
+if j == 1            
+    % Beim ersten Mal Werte ueber explizites Euler-Verfahren berechnen           
+    rob.q = rob.q + rob.dt * rob.dot_q;
+else            
+    % Gelenkwinkel berechnen
+    rob.q = rob.q + (rob.dt/2.0) * (3*rob.dot_q - dot_phi_vor);
+end
+
+end
+
