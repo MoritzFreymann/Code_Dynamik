@@ -133,29 +133,26 @@ for j=1:length(T)
     elseif strcmp(DGLVerfahren,'AB2') == true
         % Verwende Adams-Bashforth 2
         
-            % Gelenkwinkel berechnen
-            rob = AB2_q( rob, j, dot_q_vor );
-            % Speichere Geschwindigkeit fuer naechsten Zeitschritt
-            dot_q_vor = rob.dot_q;
+%             % Gelenkwinkel berechnen
+%             [rob, dot_q_vor] = AB2_q( rob, j, dot_q_vor );
+           
+            [rob, ddot_q_vor] = AB2_dot_q( rob, j, ddot_q_vor ); 
             
-            rob = AB2_dot_q( rob, j, ddot_q_vor );           
-            % Speichere Beschleunigung
-            ddot_q_vor = rob.ddot_q;
+            % Berechne q_i+1 ueber implizites Euler-Vefahren
+            rob.q = rob.q + rob.dt/2.0 * (phi_i + rob.dot_q);
             
     elseif strcmp(DGLVerfahren, 'ex_RK4') == true
         % Benutze expliziztes (klassiches) Runge-Kutta-Verfahren 4.Ordnung
         
         % Berechne Gelenkwinkel/-geschwindigkeiten
-        rob = expl_RungeKutta4( rob, j, dot_q_vor );
+        [rob, dot_q_vor] = expl_RungeKutta4( rob, j, dot_q_vor );
         
-            % Speichere Geschwindigkeit fuer naechsten Zeitschritt
-            dot_q_vor = rob.dot_q;
     else
         % Ungueltige Option
         error('Ungueltige Option gewaehlt!')
     end    
 end
-%% 
+
 % Abweichung der Gelenkbeschleunigungen
 e_ddot_Q = ddot_Q - ddot_Q_vd;
 

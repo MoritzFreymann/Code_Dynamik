@@ -18,13 +18,14 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'ex_RK4'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
                         % 'ex_RK4'  ...explizites klassisches
                         % Runge-Kutta-Verfahten 4. Ordnung
                         
 dot_q_vor = zeros(rob.N_Q,1);
+dot_q_vvor = zeros( size(dot_q_vor) );
 ddot_q_vor = zeros( size(dot_q_vor) );
 
 %% Inverse Dynamik
@@ -133,11 +134,14 @@ for j=1:length(T)
     elseif strcmp(DGLVerfahren,'AB2') == true
         % Verwende Adams-Bashforth 2
         
-            % Gelenkwinkel berechnen
-            [rob, dot_q_vor] = AB2_q( rob, j, dot_q_vor );
-           
-            [rob, ddot_q_vor] = AB2_dot_q( rob, j, ddot_q_vor );           
+%             % Berechne Gelenkwinkel
+%             [rob, dot_q_vor] = AB2_q( rob, j, dot_q_vor );
+
+            % Berechne Gelenkgeshwindigkeiten
+            [rob, ddot_q_vor] = AB2_dot_q( rob, j, ddot_q_vor ); 
             
+            [rob, dot_q_vor, dot_q_vvor] = AM3_q( rob, j, dot_q_vor, dot_q_vvor );
+                      
     elseif strcmp(DGLVerfahren, 'ex_RK4') == true
         % Benutze expliziztes (klassiches) Runge-Kutta-Verfahren 4.Ordnung
         
