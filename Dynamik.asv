@@ -217,28 +217,29 @@ h.Interpreter='latex';
 xlabel( 't in [s]','Interpreter','latex');
 ylabel( '$e_q$ in [rad]','Interpreter','latex');
 
-%% Plotte Zwangskraefte
+% Plotte Zwangskraefte
 for i=1:rob.N_Q
     
     number = sprintf('%d', i); 
-    title = strcat('Gelenk ',number);
+    title = strcat('Körper ',number);
 
     figure('Name',title,'NumberTitle','off');
     
-    % Berechne 2D-Matrix aus 4D-Matrix
     f = reshape ( F(:,1,i,:), 3, length(T) );
     m = reshape ( M(:,1,i,:), 3, length(T) );
-    
-    % Plotte Kraefte
+    % Plotte F
     subplot(2,1,1);
     plot(   T, f(1,:), ...
             T, f(2,:), ...
-            T, f(3,:)   );
+            T, f(3,:), ...
+            T, m(1,:), ...
+            T, m(2,:), ...
+            T, m(3,:)   );
 
-    h=legend( '${F_x}$','${F_y}$','${F_z}$','Location','northwest');
+    h=legend( '${F_x}$','${F_y}$','${F_z}$','${M_x}$','${M_y}$','${M_z}$','Location','northwest');
     h.Interpreter='latex';
     xlabel( 't in [s]','Interpreter','latex');
-    ylabel( 'Kraefte in [N]','Interpreter','latex');
+    ylabel( '$e_q$ in [rad]','Interpreter','latex');
 
     % Plotte Momente
     subplot(2,1,2);
@@ -249,6 +250,6 @@ for i=1:rob.N_Q
     h=legend( '${M_x}$','${M_y}$','${M_z}$','Location','northwest');
     h.Interpreter='latex';
     xlabel( 't in [s]','Interpreter','latex');
-    ylabel( 'Momente in [Nm]','Interpreter','latex');
+    ylabel( '$Momente$ in [Nm]','Interpreter','latex');
 
 end
