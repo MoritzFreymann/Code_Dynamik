@@ -2,9 +2,13 @@ function e_tau = Regelung( rob, j, Q, dot_Q )
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
+    ddot_q = rob.ddot_q;
+    rob.ddot_q = zeros(rob.N_Q,1);
     % Berechne h_ist mit inverser Dynamik
-    rob = berechne_id(rob, 'ddot_q=0' );
+    rob = berechne_id(rob, 'ddot_q~=0' );
     h_ist = rob.tau_id;
+    
+    rob.ddot_q = ddot_q;
    
     % Merke q_ist und dot_q_ist
     q = rob.q;
@@ -24,9 +28,6 @@ function e_tau = Regelung( rob, j, Q, dot_Q )
     rob.q = q;
     
     rob.dot_q = dot_q;
-    if j == 4003
-         e_tau = 0* e_tau;
-    end
 
 end
 

@@ -18,7 +18,7 @@ rob = erstelle_roboter();
 V = zeros(3,4,6,length(T));
 
 % 
-DGLVerfahren = 'ex_RK4'; % Verfahren zur Loesung der DGL
+DGLVerfahren = 'AB2'; % Verfahren zur Loesung der DGL
                         % 'Euler_ex'...explizites Euler-Verfahren
                         % 'AB2'     ...Adams-Bashforth-Verfahren 2. Ordnung
                         % 'ex_RK4'  ...explizites (klassisches)
@@ -86,8 +86,8 @@ h.Interpreter='latex';
 xlabel( 't in [s]','Interpreter','latex');
 ylabel( '$\dot{q}$ in [rad/s]','Interpreter','latex');
 
-for k=0.2:0.05:0.4
-K = k*eye(rob.N_Q);
+k = 1;
+    K = k*eye(rob.N_Q);
 %% Direkte Dynamik
 
 %Setze Roboter auf Anfangsposition
@@ -108,11 +108,11 @@ V_vd = zeros(3,4,rob.N_Q,length(T));
 % Berechne Bahn aus Drehmomenten der inversen Dynamik
 for j=1:length(T)
     
-    % Regelung
+%     % Regelung
     e_tau(:,j) = Regelung( rob, j, Q, dot_Q );
     
     % Setze Antriebsmoment
-    rob.tau_reg = Tau_id(:,j) + K*e_tau(:,j);
+    rob.tau_reg = Tau_id(:,j) - K*e_tau(:,j);
        
     % Setze die aktuelle Zeit
     rob.zeit = T(j);
@@ -186,5 +186,3 @@ h=legend( '$e_{q_1}$','$e_{q_2}$','$e_{q_3}$','$e_{q_4}$','$e_{q_5}$','$e_{q_6}$
 h.Interpreter='latex';
 xlabel( 't in [s]','Interpreter','latex');
 ylabel( '$e_q$ in [rad]','Interpreter','latex');
-
-end
