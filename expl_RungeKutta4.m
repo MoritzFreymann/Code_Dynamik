@@ -25,9 +25,17 @@ q_i = rob.q;
 k1 = rob.ddot_q;
 
 %% k2
-% Berechne q und dot_q fuer naechsten Punkt
-rob.q = q_i + rob.dt/2.0 * phi_i;
+% Berechne q fuer naechsten Punkt
+if j == 1
+    rob.q = q_i + rob.dt/2.0 * phi_i;
+else
+    % AB2
+    rob.q = q_i + ( rob.dt/(2*2.0) ) * (3*phi_i - phi_i_vor);
+end
+
+% Berechne dot_q fuer naechsten Punkt
 rob.dot_q = phi_i + rob.dt/2.0 * k1;
+
 % Berechne k2 ueber BGL
 rob = berechne_bgl(rob);
 k2 = rob.ddot_q;
@@ -35,14 +43,23 @@ k2 = rob.ddot_q;
 %% k3
 % Berechne dot_q fuer naechsten Punkt
 rob.dot_q = phi_i + rob.dt/2.0 * k2;
+
 % Berechne k3 ueber BGL
 rob = berechne_bgl(rob);
 k3 = rob.ddot_q;
 
 %% k4
-% Berechne q und dot_q fuer naechsten Punkt
-rob.q = q_i + rob.dt * phi_i;
+% Berechne q fuer naechsten Punkt
+if j == 1
+    rob.q = q_i + rob.dt/2.0 * phi_i;
+else
+    % AB2
+    rob.q = q_i + ( rob.dt/(2.0) ) * (3*phi_i - phi_i_vor);
+end
+
+% Berechne dot_q fuer naechsten Punkt
 rob.dot_q = phi_i + rob.dt * k3;
+
 % Berechne k4 ueber BGL
 rob = berechne_bgl(rob);
 k4 = rob.ddot_q;
