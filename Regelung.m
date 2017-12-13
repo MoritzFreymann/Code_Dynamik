@@ -1,6 +1,5 @@
 function e_tau = Regelung( rob, j, Q, dot_Q )
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+% Berechnet den Fehler fuer den h-Vektor aller Kräfte ohne tau
 
 % Merken von Gelenkwinkel/-geschwindigkeiten/-beschleunigungen
 q = rob.q;
