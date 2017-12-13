@@ -7,8 +7,11 @@ function rob=berechne_bgl(rob)
 %% 1. Berechnung des h-Vektors:
 % Tipp: Nutzen Sie zur Berechnung von h die Funktion "berechne_id.m"
 
+% Setzte ddot_q zu 0
+rob.ddot_q = zeros(rob.N_Q,1);
+
 % Berechne inverse Dynamik
-rob = berechne_id(rob, 'ddot_q=0' );
+rob = berechne_id(rob);
     
 % Setze h gleich tau(q, dot_q, ddot_q=0)
 rob.h = rob.tau_id;

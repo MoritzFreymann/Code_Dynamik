@@ -1,4 +1,4 @@
-function rob = berechne_id(rob, Verfahren)
+function rob = berechne_id(rob)
 %Inverse Dynamik fuer Roboter rob berechnen
 % Die Ergebnisse werden wiederum in der Struktur rob. gespeichert
 %
@@ -14,7 +14,7 @@ rob.tau_id=zeros(rob.N_Q,1);
 %2. Kinematik berechnen
 rob=berechne_dk_positionen(rob);
 rob=berechne_dk_geschwindigkeiten(rob);
-rob=berechne_dk_beschleunigungen(rob, Verfahren);
+rob=berechne_dk_beschleunigungen(rob);
 rob=berechne_dk_jacobis(rob,'xxx');
 
 %3. Berechnung fuer alle Koerper: Impuls- und Drallaenderung

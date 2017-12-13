@@ -46,7 +46,7 @@ for i=1:length(T)
     rob.zeit = T(i);
  
     % Berechne inverse Dynamik
-    rob = berechne_id(rob, 'ddot_q~=0');
+    rob = berechne_id(rob);
     
     % Gelenkmomente zur spaeteren Analyse speichern
     Tau_id(:,i) = rob.tau_id;   
